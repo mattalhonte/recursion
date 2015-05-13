@@ -1,0 +1,20 @@
+(empty? [1 2 3])
+
+(defn product [coll]
+  (if (empty? coll)
+    0
+    (* (first coll)
+       (product (rest coll)))))
+
+(product '(1 2 3 4))
+= (product (cons 1 (cons 2 (cons 3 (cons 4 '())))))
+
+(* 1 (product (cons 2 (cons 3 (cons 4 '())))))
+(* 1 (* 2 (product (cons 3 (cons 4 '())))))
+(* 1 (* 2 (* 3 (product (cons 4 '())))))
+(* 1 (* 2 (* 3 (* 4 (product '())))))
+(* 1 (* 2 (* 3 (* 4 1)))) ; (empty? '() is true, so (product '()) is 1)
+(* 1 (* 2 (* 3 4)))
+(* 1 (* 2 12))
+(* 1 24)
+24
